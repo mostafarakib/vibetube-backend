@@ -1,0 +1,17 @@
+{
+  "name": "vibetube",
+  "version": "1.0.0",
+  "description": "A video streaming website backend",
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "Rakib",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
