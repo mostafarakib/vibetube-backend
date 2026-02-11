@@ -19,6 +19,7 @@ const uploadToCloudinary = async (localFilePath) => {
 
     // file uploaded successfully
     fs.unlinkSync(localFilePath); // delete local file after upload
+    console.log("File deleted from local storage:", localFilePath);
     return response;
   } catch (error) {
     fs.unlinkSync(localFilePath); // delete local file on error as well
