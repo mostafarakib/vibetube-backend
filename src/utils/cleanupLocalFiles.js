@@ -12,7 +12,6 @@ const deleteFile = (path) => {
 };
 
 const cleanupLocalFiles = (files) => {
-  console.log("Cleaning up local files:", files);
   if (!files) return;
 
   if (Array.isArray(files)) {
