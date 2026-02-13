@@ -15,11 +15,11 @@ const uploadToCloudinary = async (localFilePath) => {
 
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
+      folder: "vibetube",
     });
 
     // file uploaded successfully
     fs.unlinkSync(localFilePath); // delete local file after upload
-    console.log("File deleted from local storage:", localFilePath);
     return response;
   } catch (error) {
     fs.unlinkSync(localFilePath); // delete local file on error as well
