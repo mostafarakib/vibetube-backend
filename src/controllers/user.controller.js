@@ -124,7 +124,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
 
-  if (!email && !username) {
+  if (!email?.trim() && !username?.trim()) {
     throw new ApiError(400, "Email or username is required");
   }
 
@@ -137,6 +137,10 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (!user) {
     throw new ApiError(400, "Invalid email or username");
+  }
+
+  if (!password) {
+    throw new ApiError(400, "Password is required");
   }
 
   const isPasswordValid = await user.isPasswordCorrect(password);
@@ -171,4 +175,25 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerUser, loginUser };
+const logoutUser = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+
+  await User.findByIdAndUpdate(
+    userId,
+    { $set: { refreshToken: null } },
+    { new: true }
+  );
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, "User logged out successfully", null));
+});
+
+export { registerUser, loginUser, logoutUser };
